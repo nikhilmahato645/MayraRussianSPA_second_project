@@ -1,0 +1,37 @@
+{
+  "name": "Mayra Russian Spa — Authentic Russian Banya & Massage Therapy",
+  "short_name": "Mayra Russian Spa",
+  "description": "Russian banya and massage therapy in Mahipalpur, New Delhi. Traditional birch-venik banya, deep tissue, couples and Ayurvedic treatments in private rooms, open 24 hours.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F7F3EA",
+  "theme_color": "#0B201C",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": [
+    "health",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "/assets/brand-assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/brand-assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/brand-assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

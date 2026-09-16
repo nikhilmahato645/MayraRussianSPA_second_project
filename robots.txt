@@ -1,0 +1,8 @@
+# robots.txt — Mayra Russian Spa
+# Everything is crawlable. CSS, JS and images are deliberately NOT blocked:
+# Google needs them to render and assess the page for mobile usability.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://YOUR-DOMAIN.com/sitemap.xml

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Canonical, indexable URLs only. priority and changefreq are deliberately
+     omitted: Google ignores them, and setting them is cargo cult. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://YOUR-DOMAIN.com/</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/about.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/services.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/gallery.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/contact.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/russian-spa-in-mahipalpur.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/russian-spa-in-aerocity.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/russian-spa-in-gurgaon.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/russian-spa-in-new-delhi.html</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+</urlset>
