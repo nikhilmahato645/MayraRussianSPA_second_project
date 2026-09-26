@@ -30,7 +30,7 @@ window.SITE_CONFIG = {
   /* NOTE: the values below were supplied as placeholders. Replace them with
      the verified business phone and inbox before deployment.                */
   PHONE_DISPLAY: '+91 99999 99999',
-  PHONE_HREF: '+91999999999',
+  PHONE_HREF: '+917492993476',
   EMAIL: 'abc@gamil.com',
 
   /* ---- Location -------------------------------------------------------- */
