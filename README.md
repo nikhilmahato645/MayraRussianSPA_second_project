@@ -123,7 +123,7 @@ These items cannot be completed without real business information:
 1. **Domain** — replace `SITE_URL` in `js/site-config.js` and rebuild. Every
    canonical, `og:url`, sitemap entry and the `robots.txt` sitemap line updates
    automatically. Pick one format (https + non-www) and keep it.
-2. **Phone and email** — `+91 99999 99999` and `abc@gamil.com` are the
+2. **Phone and email** — `+91 7492993476` and `abc@gamil.com` are the
    placeholders that were supplied. Replace with the verified ones.
 3. **Street address** — only the locality is published. Add the verified street
    line to `ADDRESS_SHORT` and to `address()` in `tools/schema.js`. Do not guess.

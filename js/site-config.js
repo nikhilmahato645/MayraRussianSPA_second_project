@@ -17,9 +17,10 @@
 
 window.SITE_CONFIG = {
   /* ---- Deployment ------------------------------------------------------ */
-  /* TODO: replace with the real domain before going live. Use ONE canonical
-     format everywhere: https + non-www. No trailing slash.                  */
-  SITE_URL: 'https://YOUR-DOMAIN.com',
+  /* The live domain. ONE canonical format everywhere: https + non-www, no
+     trailing slash. Make sure the host actually redirects http -> https and
+     www -> non-www, or you will have four crawlable copies of every page. */
+  SITE_URL: 'https://russianspamahipalpuraerocity.in',
 
   /* ---- Identity -------------------------------------------------------- */
   BUSINESS_NAME: 'Mayra Russian Spa',
@@ -27,11 +28,13 @@ window.SITE_CONFIG = {
   TAGLINE: 'Authentic Russian Banya & Massage Therapy',
 
   /* ---- Contact --------------------------------------------------------- */
-  /* NOTE: the values below were supplied as placeholders. Replace them with
-     the verified business phone and inbox before deployment.                */
-  PHONE_DISPLAY: '+91 99999 99999',
+  /* EMAIL was supplied by the owner and is live.
+     PHONE is still the number given at the start of the project — confirm it
+     is the line that actually answers before launch, because the home page
+     uses it for both the call and the WhatsApp buttons.                     */
+  PHONE_DISPLAY: '+91 7492993476',
   PHONE_HREF: '+917492993476',
-  EMAIL: 'abc@gamil.com',
+  EMAIL: 'mayrarussianspa@gmail.com',
 
   /* ---- Location -------------------------------------------------------- */
   /* Only the area/locality is published because no verified street address
@@ -54,10 +57,12 @@ window.SITE_CONFIG = {
   INSTAGRAM: '',
 
   /* ---- Booking --------------------------------------------------------- */
-  /* WhatsApp and online booking are intentionally disabled: no verified
-     WhatsApp number or booking endpoint was provided. Set WHATSAPP to the
-     digits-only number to enable the button everywhere.                     */
-  WHATSAPP: '',
+  /* Digits only, with country code and no "+". Enabled on the owner's
+     instruction, using the same number as PHONE_HREF.
+     VERIFY before launch: send a test message to https://wa.me/917492993476.
+     If that number has no WhatsApp account the link opens a dead chat, and
+     the home page uses it as its primary call to action.                    */
+  WHATSAPP: '917492993476',
 
   /* ---- Contact form ---------------------------------------------------- */
   /* The contact form has NO backend yet. While this is null the form

@@ -13,7 +13,11 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const SITE_URL = 'https://YOUR-DOMAIN.com';
+/* Read the domain from the single source of truth rather than repeating it.
+   Hard-coding it here meant the audit failed every page the moment the real
+   domain was set — reporting the config change as 28 broken canonicals. */
+const { CFG } = require('./partials');
+const SITE_URL = CFG.SITE_URL;
 
 const HTML = fs.readdirSync(ROOT).filter((f) => f.endsWith('.html')).sort();
 
@@ -45,7 +49,9 @@ HTML.forEach((file) => {
 
   /* --- Document basics ------------------------------------------------- */
   /^<!doctype html>/i.test(src) ? ok() : fail(file, 'missing <!doctype html>');
-  /<html lang="en">/.test(src) ? ok() : fail(file, 'missing <html lang="en">');
+  /* "en" or a region subtag such as "en-IN" — both are valid, and en-IN is
+     the better signal for a Delhi business. */
+  /<html lang="en(-[A-Za-z]{2})?"/.test(src) ? ok() : fail(file, 'missing <html lang="en">');
   /<meta charset="UTF-8">/i.test(src) ? ok() : fail(file, 'missing charset');
   /<meta name="viewport"[^>]*width=device-width/.test(src) ? ok() : fail(file, 'missing viewport meta');
 
@@ -113,7 +119,9 @@ HTML.forEach((file) => {
   all(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, src).forEach((m, i) => {
     try {
       const parsed = JSON.parse(m[1]);
-      if (!parsed['@context'] || !parsed['@type']) fail(file, `JSON-LD #${i + 1} missing @context/@type`);
+      /* A block may declare one @type, or several entities under @graph. */
+      const typed = parsed['@type'] || Array.isArray(parsed['@graph']);
+      if (!parsed['@context'] || !typed) fail(file, `JSON-LD #${i + 1} missing @context/@type`);
       else ok();
       /* Guard against the fabricated-trust properties we agreed to omit */
       const flat = JSON.stringify(parsed);
@@ -187,8 +195,19 @@ HTML.forEach((file) => {
   });
 
   /* --- Performance hygiene -------------------------------------------------- */
-  if (/<script(?![^>]*\bdefer\b)(?![^>]*\btype="application\/ld\+json")/.test(src)) {
-    fail(file, 'found a render-blocking (non-deferred) script');
+  /* What actually costs the visitor is an EXTERNAL script without defer or
+     async: it blocks the parser on a network round trip. A very small inline
+     script is a legitimate tool — setting html.js before the stylesheet is
+     applied, so the FAQ does not flash open — and costs microseconds. So
+     inline is allowed up to 300 bytes and flagged above that. */
+  const blockingExternal = all(/<script\b[^>]*\bsrc=[^>]*>/g, src)
+    .filter((m) => !/\bdefer\b|\basync\b/.test(m[0]));
+  const bigInline = all(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g, src)
+    .filter((m) => !/application\/ld\+json/.test(m[0]))
+    .filter((m) => m[1].trim().length > 300);
+
+  if (blockingExternal.length || bigInline.length) {
+    fail(file, 'found a render-blocking script');
   } else ok();
 
   const eagerHero = all(/<img\b[^>]*fetchpriority="high"[^>]*>/g, src).length;

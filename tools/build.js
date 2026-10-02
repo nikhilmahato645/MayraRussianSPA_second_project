@@ -63,8 +63,16 @@ function toRelativePaths(html) {
     .replace(/\b(href|src)="\/(?!\/)/g, '$1="');
 }
 
+/* A page may export its own render() and opt out of the shared head/header/
+   footer entirely — the home page does, because it has its own layout and
+   stylesheet. Everything else still goes through partials.js, so the two
+   cannot drift. Path rewriting applies either way. */
 function render(page) {
-  return toRelativePaths(head(page) + header(page) + page.body + footer());
+  return toRelativePaths(
+    typeof page.render === 'function'
+      ? page.render()
+      : head(page) + header(page) + page.body + footer()
+  );
 }
 
 function writeFile(name, contents) {
@@ -115,8 +123,10 @@ Sitemap: ${CFG.SITE_URL}/sitemap.xml
    ------------------------------------------------------------------------ */
 function buildManifest() {
   return JSON.stringify({
-    name: `${CFG.BUSINESS_NAME} — ${CFG.TAGLINE}`,
-    short_name: CFG.BUSINESS_NAME,
+    /* Descriptive, not CFG.BUSINESS_NAME: the home page carries no brand name,
+       and this is the label shown under the installed app icon. */
+    name: 'Russian Spa Mahipalpur — Banya & Body Massage',
+    short_name: 'Russian Spa',
     description:
       'Russian banya and massage therapy in Mahipalpur, New Delhi. Traditional birch-venik banya, ' +
       'deep tissue, couples and Ayurvedic treatments in private rooms, open 24 hours.',
@@ -124,15 +134,20 @@ function buildManifest() {
     scope: '/',
     display: 'standalone',
     orientation: 'portrait-primary',
-    background_color: '#F7F3EA',
-    theme_color: '#0B201C',
+    background_color: '#FFFAFB',   /* blush — the splash screen behind the icon */
+    theme_color: '#371E27',        /* plum  — must match the page's theme-color meta */
     lang: 'en-IN',
     dir: 'ltr',
     categories: ['health', 'lifestyle'],
+    /* "any" and "maskable" are SEPARATE artwork, not the same file reused.
+       A maskable icon gets cropped to the launcher's shape (circle, squircle,
+       teardrop), so its mark sits inside the central 80% safe zone and its
+       background runs full bleed. Pointing both purposes at the rounded "any"
+       icon is the usual mistake — Android then crops the corners off it. */
     icons: [
       { src: '/assets/brand-assets/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
       { src: '/assets/brand-assets/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-      { src: '/assets/brand-assets/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+      { src: '/assets/brand-assets/icon-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
     ]
   }, null, 2) + '\n';
 }
